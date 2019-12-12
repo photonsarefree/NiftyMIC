@@ -40,7 +40,10 @@ def main(prefix_environ="NIFTYMIC_"):
     os.chdir(DIR_CPP_BUILD)
 
     # Compile using cmake
-    cmd = "cmake %s" % (" ").join(cmake_args)
+    if "CMAKE_EXECUTABLE" in os.environ:
+        cmd = "$CMAKE_EXECUTABLE %s" % (" ").join(cmake_args)
+    else:
+        cmd = "cmake %s" % (" ").join(cmake_args)
     print(cmd)
     os.system(cmd)
     cmd = "make -j8"
